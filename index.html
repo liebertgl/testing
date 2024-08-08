@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <title>Liebert Web</title>
+</head>
+<body>
+    <h1>Liebert Web</h1>
+    <form id="cookieForm">
+        <label for="browser">Select Browser:</label>
+        <select id="browser" name="browser">
+            <option value="edge">Microsoft Edge</option>
+            <option value="chrome">Google Chrome</option>
+            <option value="firefox">Mozilla Firefox</option>
+            <option value="opera">Opera</option>
+        </select>
+        <input type="button" value="Click This (Testing)" onclick="submitForm()">
+    </form>
+    <div id="result"></div>
+    <script>
+        function submitForm() {
+            const browser = document.getElementById('browser').value;
+            fetch('https://your-external-server-url/extract', {  // Replace with your actual server URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ browser: browser })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = JSON.stringify(data);
+            })
+            .catch(error => {
+                document.getElementById('result').innerText = 'Error: ' + error;
+            });
+        }
+    </script>
+</body>
+</html>
